@@ -1,0 +1,30 @@
+{
+  "name": "anti-piracy-app",
+  "version": "0.0.1",
+  "description": "Anti piracy application(macOS/win32)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "author": "vishal kale",
+  "license": "VPK",
+  "devDependencies": {
+    "electron": "^3",
+    "electron-builder": "17.1.2"
+  },
+  "build": {
+    "appId": "oikonomopo.electron-deeplinking-macos-win32",
+    "protocols": {
+      "name": "electron-deep-linking",
+      "schemes": [
+        "celestial"
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.Reference"
+    },
+    "win": {}
+  }
+}
