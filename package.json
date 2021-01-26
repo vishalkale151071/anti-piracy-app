@@ -26,5 +26,13 @@
       "category": "public.app-category.Reference"
     },
     "win": {}
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vishalkale151071/anti-piracy-app.git"
+  },
+  "dependencies": {
+    "ps-list": "^7.2.0",
+    "ps-node": "^0.1.6"
   }
 }

@@ -1,6 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
+const logEverywhere = require('./utilities');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -19,7 +20,7 @@ const shouldQuit = app.makeSingleInstance((argv, workingDirectory) => {
     // Keep only command line / deep linked arguments
     deeplinkingUrl = argv.slice(1)[1];
   }
-  logEverywhere("app.makeSingleInstance# " + deeplinkingUrl);
+  logEverywhere("app.makeSingleInstance# " + deeplinkingUrl, mainWindow);
 
   if (mainWindow) {
     if (mainWindow.isMinimized()){
@@ -35,7 +36,12 @@ if (shouldQuit) {
 }
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow(
+    {
+      width: 800,
+      height: 600,
+    }
+  )
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
@@ -60,14 +66,14 @@ function createWindow () {
   })
 
   const components = url.parse(deeplinkingUrl, true);
-  logEverywhere("Scheme : " + components.protocol);
-  logEverywhere("Host : " + components.host);
-  logEverywhere("Pathname : " + components.pathname);
+  logEverywhere("Scheme : " + components.protocol, mainWindow);
+  logEverywhere("Host : " + components.host, mainWindow);
+  logEverywhere("Pathname : " + components.pathname, mainWindow);
   const params = components.query;
-  logEverywhere("Query : " + params.t);
+  logEverywhere("Query : " + params.t, mainWindow);
 
   if(components.protocol == "celestial:" && components.host == "localhost:5000"){
-    logEverywhere("Ok.");
+    logEverywhere("Ok.", mainWindow);
   }else{
     app.exit();
   }
@@ -106,13 +112,5 @@ if(process.platform == "win32"){
 app.on('open-url', function (event, url) {
   event.preventDefault();
   deeplinkingUrl = url;
-  logEverywhere("open-url# " + deeplinkingUrl);
+  logEverywhere("open-url# " + deeplinkingUrl, mainWindow);
 });
-
-// Log both at dev console and at running node console instance
-function logEverywhere(s) {
-    console.log(s);
-    if (mainWindow && mainWindow.webContents) {
-        mainWindow.webContents.executeJavaScript(`console.log("${s}")`);
-    }
-}
