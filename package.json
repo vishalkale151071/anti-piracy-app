@@ -32,7 +32,10 @@
     "url": "https://github.com/vishalkale151071/anti-piracy-app.git"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "electron-store": "^7.0.0",
     "ps-list": "^7.2.0",
-    "ps-node": "^0.1.6"
+    "ps-node": "^0.1.6",
+    "xmlhttprequest": "^1.8.0"
   }
 }

@@ -7,9 +7,13 @@
   <body>
     <h1>Hello World!</h1>
   </body>
-
+    <button id='close'>close</button>
   <script>
     // You can also require other files to run in this process
-    require('./renderer.js')
+    const { ipcRenderer } = require('electron');
+    const closeBtn = document.getElementById('close');
+    closeBtn.addEventListener('click', () => {
+      ipcRenderer.send('close');
+    })
   </script>
 </html>
